@@ -1,0 +1,159 @@
+.pricing-page {
+  width: 100%;
+  min-height: calc(100vh - 200px);
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pricing-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  text-align: center;
+}
+
+.pricing-title {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 300;
+  color: #ffffff;
+  margin: 0;
+}
+
+.pricing-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+.pricing-gear {
+  margin-top: 3rem;
+}
+
+.pricing-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pricing-value {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.pricing-label {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.pricing-description {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.pricing-gear {
+  width: 100%;
+  max-width: 1200px;
+  text-align: left;
+}
+
+.gear-section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: #ffffff;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.gear-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  padding-top: 1rem;
+}
+
+.gear-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gear-category {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.gear-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.gear-list li {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.pricing-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pricing-button {
+  padding: 1rem 2.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.pricing-button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.pricing-note {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .gear-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
