@@ -1,8 +1,11 @@
--- Drop existing policies if they exist (to avoid conflicts)
+-- Fix bookings table and RLS policies
+-- Run this in your Supabase SQL Editor if you're getting "Something went wrong" errors
+
+-- First, drop existing policies to avoid conflicts
 DROP POLICY IF EXISTS "Allow public inserts" ON bookings;
 DROP POLICY IF EXISTS "Allow authenticated reads" ON bookings;
 
--- Create bookings table for storing form submissions
+-- Ensure the table exists with correct structure
 CREATE TABLE IF NOT EXISTS bookings (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
@@ -17,6 +20,7 @@ CREATE TABLE IF NOT EXISTS bookings (
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 
 -- Create policy to allow anonymous users to insert bookings
+-- This is critical - without this, inserts will fail
 CREATE POLICY "Allow public inserts" ON bookings
   FOR INSERT
   TO anon
@@ -28,9 +32,18 @@ CREATE POLICY "Allow authenticated reads" ON bookings
   TO authenticated
   USING (true);
 
--- Create index on email for faster lookups
+-- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_bookings_email ON bookings(email);
-
--- Create index on created_at for sorting
 CREATE INDEX IF NOT EXISTS idx_bookings_created_at ON bookings(created_at DESC);
+
+-- Verify the setup
+SELECT 
+  schemaname,
+  tablename,
+  policyname,
+  permissive,
+  roles,
+  cmd
+FROM pg_policies 
+WHERE tablename = 'bookings';
 

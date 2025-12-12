@@ -28,19 +28,21 @@ function BookingForm() {
     try {
       const { data, error } = await supabase
         .from('bookings')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            domain: formData.domain || null,
-            product_name: formData.productName || null,
-            launch_timeline: formData.launchTimeline || null,
-            created_at: new Date().toISOString()
-          }
-        ])
-        .select()
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          domain: formData.domain || null,
+          product_name: formData.productName || null,
+          launch_timeline: formData.launchTimeline || null
+        })
 
       if (error) {
+        console.error('Supabase error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        })
         throw error
       }
 
