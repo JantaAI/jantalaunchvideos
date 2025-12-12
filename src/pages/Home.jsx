@@ -17,7 +17,7 @@ function Home() {
         </video>
         <div className="hero-section">
         <h1 className="hero-title">
-          LAUNCH VIDEOS FOR STARTUPS
+          VIDEO PRODUCTION FOR STARTUPS
         </h1>
           <p className="hero-tagline">
             Combining experiences with your product.
