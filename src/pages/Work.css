@@ -17,7 +17,7 @@
 
 .work-stats {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 2rem;
   padding: 1.5rem 0;
@@ -89,7 +89,7 @@
   font-weight: 300;
   color: #ffffff;
   margin: 0 0 2rem 0;
-  text-align: left;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -124,12 +124,12 @@
 
 .past-work-stats {
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 2rem;
   padding: 1.5rem 0;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .past-stat-item {

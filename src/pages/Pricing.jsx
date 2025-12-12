@@ -9,9 +9,6 @@ function Pricing() {
           <div className="pricing-main">
             <div className="pricing-value">$8k-$20k</div>
             <div className="pricing-label">Per Project</div>
-            <p className="pricing-description">
-              Custom pricing based on your project needs.
-            </p>
           </div>
         </div>
       </div>

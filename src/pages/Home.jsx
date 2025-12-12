@@ -17,11 +17,10 @@ function Home() {
         </video>
         <div className="hero-section">
         <h1 className="hero-title">
-          LAUNCH VIDEO<br />
-          PRODUCTION
+          LAUNCH VIDEOS FOR STARTUPS
         </h1>
           <p className="hero-tagline">
-            Combining real world experience with digital products.
+            Combining experiences with your product.
           </p>
           <Link to="/work" className="hero-cta">
             VIEW WORK

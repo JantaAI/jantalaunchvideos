@@ -64,9 +64,69 @@ src/
 └── main.jsx         # Entry point
 ```
 
+## Supabase Setup
+
+The booking form is connected to Supabase for storing form submissions.
+
+### 1. Create Environment File
+
+Create a `.env` file in the root directory with your Supabase credentials:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 2. Create Database Table
+
+Run the migration SQL in your Supabase SQL Editor:
+
+```sql
+-- Create bookings table for storing form submissions
+CREATE TABLE IF NOT EXISTS bookings (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  domain TEXT,
+  product_name TEXT,
+  launch_timeline TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+
+-- Create policy to allow anyone to insert bookings
+CREATE POLICY "Allow public inserts" ON bookings
+  FOR INSERT
+  TO anon
+  WITH CHECK (true);
+
+-- Create policy to allow authenticated users to read bookings
+CREATE POLICY "Allow authenticated reads" ON bookings
+  FOR SELECT
+  TO authenticated
+  USING (true);
+
+-- Create index on email for faster lookups
+CREATE INDEX IF NOT EXISTS idx_bookings_email ON bookings(email);
+
+-- Create index on created_at for sorting
+CREATE INDEX IF NOT EXISTS idx_bookings_created_at ON bookings(created_at DESC);
+```
+
+The SQL file is also available at: `supabase/migrations/20250111_create_bookings_table.sql`
+
+### 3. Get Your Supabase Credentials
+
+1. Go to your Supabase project dashboard
+2. Navigate to Settings > API
+3. Copy your Project URL and anon/public key
+4. Add them to your `.env` file
+
 ## Notes
 
-- The video player component is set up but requires an actual video source file
-- Form submission handling needs to be connected to your backend/API
+- The video player component is set up and uses the video files in `/public`
+- Form submissions are stored in Supabase `bookings` table
 - All styling matches the original design with dark theme and minimalist aesthetic
 

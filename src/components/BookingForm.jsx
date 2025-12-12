@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabase } from '../lib/supabase'
 import './BookingForm.css'
 
 function BookingForm() {
@@ -9,6 +10,8 @@ function BookingForm() {
     productName: '',
     launchTimeline: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null)
 
   const handleChange = (e) => {
     setFormData({
@@ -17,10 +20,45 @@ function BookingForm() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const { data, error } = await supabase
+        .from('bookings')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            domain: formData.domain || null,
+            product_name: formData.productName || null,
+            launch_timeline: formData.launchTimeline || null,
+            created_at: new Date().toISOString()
+          }
+        ])
+        .select()
+
+      if (error) {
+        throw error
+      }
+
+      setSubmitStatus('success')
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        domain: '',
+        productName: '',
+        launchTimeline: ''
+      })
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -110,17 +148,29 @@ function BookingForm() {
           </div>
         </div>
         
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" disabled={isSubmitting}>
           <svg className="video-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M18.3333 8.33333L13.3333 5V15L18.3333 11.6667V8.33333Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M11.6667 3.33333H3.33333C2.41286 3.33333 1.66667 4.07952 1.66667 5V15C1.66667 15.9205 2.41286 16.6667 3.33333 16.6667H11.6667C12.5871 16.6667 13.3333 15.9205 13.3333 15V5C13.3333 4.07952 12.5871 3.33333 11.6667 3.33333Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          BOOK FREE CALL
+          {isSubmitting ? 'SUBMITTING...' : 'BOOK FREE CALL'}
         </button>
         
-        <p className="form-footer">
-          No payment required. We'll send you a calendar invite within 24h.
-        </p>
+        {submitStatus === 'success' && (
+          <p className="form-footer success-message">
+            Thank you! We'll send you a calendar invite within 24h.
+          </p>
+        )}
+        {submitStatus === 'error' && (
+          <p className="form-footer error-message">
+            Something went wrong. Please try again.
+          </p>
+        )}
+        {!submitStatus && (
+          <p className="form-footer">
+            No payment required. We'll send you a calendar invite within 24h.
+          </p>
+        )}
       </form>
     </div>
   )

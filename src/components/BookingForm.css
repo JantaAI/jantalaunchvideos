@@ -107,9 +107,14 @@
   margin-top: 0.5rem;
 }
 
-.submit-button:hover {
+.submit-button:hover:not(:disabled) {
   background-color: rgba(255, 255, 255, 0.9);
   transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .video-icon {
@@ -123,6 +128,14 @@
   text-align: center;
   margin: 0;
   margin-top: -0.5rem;
+}
+
+.success-message {
+  color: #4ade80;
+}
+
+.error-message {
+  color: #f87171;
 }
 
 @media (max-width: 768px) {
